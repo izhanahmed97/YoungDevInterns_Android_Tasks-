@@ -1,0 +1,45 @@
+import random
+
+def guess_the_number(predefined_inputs=None):
+    """
+    A simple "Guess the Number" game.
+
+    :param predefined_inputs: A list of predefined inputs to simulate user interaction.
+    """
+    print("Welcome to Guess the Number!")
+    print("I'm thinking of a number between 1 and 100. Can you guess what it is?")
+
+    number_to_guess = random.randint(1, 100)
+    attempts = 0
+
+    if predefined_inputs is not None and len(predefined_inputs) > 0:
+        input_iter = iter(predefined_inputs)
+        get_input = lambda prompt: next(input_iter, "")
+    else:
+        get_input = input
+
+    while True:
+        try:
+            guess = get_input("Enter your guess: ")
+
+            if guess == "":
+                print("No input provided. Exiting the game.")
+                break
+
+            guess = int(guess)
+            attempts += 1
+
+            if guess < number_to_guess:
+                print("Too low! Try again.")
+            elif guess > number_to_guess:
+                print("Too high! Try again.")
+            else:
+                print(f"Congratulations! You guessed the number in {attempts} attempts.")
+                break
+        except ValueError:
+            print("Error: Please enter a valid number.")
+
+if __name__ == "__main__":
+    # Example predefined inputs for non-interactive environments.
+    predefined_inputs = ["50", "75", "62", "68", "100"]  # Change as needed
+    guess_the_number(predefined_inputs=predefined_inputs)
